@@ -14,15 +14,16 @@ export const Empleados = () => {
     setSearchTermCliente(e.target.value);
   };
 
-  // // Filtrar por término de búsqueda y usuario seleccionado
-  // let filteredData = empleados.filter((empleado) => {
-  //   const matchesSearchTerm = empleado.nombre
-  //     .toLowerCase()
-  //     .includes(searchTermCliente.toLowerCase());
+  // Filtrar por término de búsqueda y usuario seleccionado
+  let filteredData = empleados.filter((empleado) => {
+    const matchesSearchTerm = empleado.nombre
+      .toLowerCase()
+      .includes(searchTermCliente.toLowerCase());
 
-  //   return matchesSearchTerm;
-  // });
+    return matchesSearchTerm;
+  });
 
+  console.log("empleados", empleados);
   return (
     <section className="min-h-screen max-h-full w-full h-full max-w-full">
       <ToastContainer />
@@ -78,37 +79,33 @@ export const Empleados = () => {
         <table className="table text-xs">
           <thead>
             <tr>
-              <th className="px-4 py-4  text-slate-800 font-bold uppercase">
-                Referencia
-              </th>{" "}
-              <th className="px-4 py-4  text-slate-800 font-bold uppercase">
+              <th className=" uppercase text-violet-600 py-5">Referencia</th>{" "}
+              <th className=" uppercase text-violet-600 py-5">
                 Nombre y apellido
               </th>{" "}
-              <th className="px-4 py-4  text-slate-800 font-bold uppercase">
-                Telefono
-              </th>{" "}
-              <th className="px-4 py-4  text-slate-800 font-bold uppercase">
-                Email
-              </th>{" "}
-              <th className="px-4 py-4  text-slate-800 font-bold uppercase">
-                Fabrica
-              </th>{" "}
-              <th className="px-4 py-4  text-slate-800 font-bold uppercase">
-                Puesto
-              </th>{" "}
-              <th className="px-4 py-4  text-slate-800 font-bold uppercase">
-                Estado
-              </th>{" "}
-              <th className="px-1 py-4  text-slate-800 font-bold uppercase">
-                Acciones
-              </th>
+              <th className=" uppercase text-violet-600 py-5">Telefono</th>{" "}
+              <th className=" uppercase text-violet-600 py-5">Email</th>{" "}
+              <th className=" uppercase text-violet-600 py-5">Fabrica</th>{" "}
+              <th className=" uppercase text-violet-600 py-5">Puesto</th>{" "}
+              <th className=" uppercase text-violet-600 py-5">Estado</th>{" "}
+              <th className=" uppercase text-violet-600 py-5">Acciones</th>
             </tr>
           </thead>
 
-          <tbody className="divide-y divide-gray-200 uppercase">
-            {/* {filteredData.map((s) => (
-              <tr key={s.id}></tr>
-            ))} */}
+          <tbody className=" uppercase">
+            {filteredData.map((empleado) => (
+              <tr key={empleado.id}>
+                <td className="font-semibold">{empleado.id}</td>
+                <td className="font-semibold">
+                  {empleado.nombre} {empleado.apellido}
+                </td>
+                <td className="font-semibold">{empleado.numero_telefono}</td>
+                <td className="font-semibold">{empleado.email_empleado}</td>
+                <td className="font-semibold">{empleado.fabrica}</td>
+                <td className="font-semibold">{empleado.puesto}</td>
+                <td className="font-semibold">{empleado.estado}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

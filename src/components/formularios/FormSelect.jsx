@@ -12,7 +12,7 @@ export const FormSelect = ({
         {...props}
         type={type}
         placeholder={placeholder}
-        className="border capitalize border-[#E2E8F0] bg-[#F7FAFC] py-[0.90rem] px-[0.75rem] focus:border-blue-500 rounded-none outline-none outline-[1px] text-sm font-semibold"
+        className="border capitalize border-[#E2E8F0] bg-[#F7FAFC] py-[0.90rem] px-[0.75rem] focus:border-violet-500 rounded-none outline-none outline-[1px] text-sm font-semibold"
       >
         {children}
       </select>

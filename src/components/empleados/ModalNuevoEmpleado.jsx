@@ -6,6 +6,7 @@ import { Button } from "../formularios/Button";
 import client from "../../api/axios";
 import io from "socket.io-client";
 import { toast } from "react-toastify";
+import { FormSelect } from "../formularios/FormSelect";
 
 export const ModalNuevoEmpleado = () => {
   const { register, handleSubmit, reset } = useForm();
@@ -20,8 +21,8 @@ export const ModalNuevoEmpleado = () => {
 
     setSocket(newSocket);
 
-    newSocket.on("nuevo-empleado", (crearProveedor) => {
-      setEmpleados(crearProveedor);
+    newSocket.on("nuevo-empleado", (crearEmpleado) => {
+      setEmpleados(crearEmpleado);
     });
 
     return () => newSocket.close();
@@ -38,7 +39,7 @@ export const ModalNuevoEmpleado = () => {
 
       //   setProveedores(res?.data?.todosLosProveedores);
       if (socket) {
-        socket.emit("nuevo-proveedor", res?.data?.todosLosEmpleados);
+        socket.emit("nuevo-empleado", res?.data?.todosLosEmpleados);
       }
 
       toast.success("Empleado guardado correctamente", {
@@ -82,61 +83,205 @@ export const ModalNuevoEmpleado = () => {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <FormInput
+              styles={"capitalize"}
               labelText={"Nombre"}
               placeholder={"Escribe el nombre del empleado"}
               type={"text"}
               props={{ ...register("nombre", { required: true }) }}
             />
             <FormInput
+              styles={"capitalize"}
               labelText={"Apellido"}
               placeholder={"Escribe el apellido del empleado"}
               type={"text"}
               props={{ ...register("apellido", { required: true }) }}
             />
             <FormInput
+              styles={"capitalize"}
               labelText={"Dni"}
               placeholder={"Escribe el DNI del empleado"}
               type={"text"}
               props={{ ...register("dni", { required: true }) }}
             />
             <FormInput
+              styles={"capitalize"}
               labelText={"Ciudad"}
               placeholder={"Escribe la ciudad del empleado"}
               type={"text"}
               props={{ ...register("ciudad", { required: true }) }}
             />
             <FormInput
+              styles={"capitalize"}
               labelText={"País"}
               placeholder={"Escribe el país del empleado"}
               type={"text"}
               props={{ ...register("pais", { required: true }) }}
             />
+
             <FormInput
               labelText={"Fecha Nacimiento"}
               placeholder={"Escribe la fecha de nacimiento del empleado"}
-              type={"text"}
+              type={"date"}
               props={{ ...register("fecha_nacimiento", { required: true }) }}
-            />
-            <FormInput
-              labelText={"Género"}
-              placeholder={"Escribe el género del empleado"}
-              type={"text"}
-              props={{ ...register("genero", { required: true }) }}
             />
 
             <FormInput
+              styles={"capitalize"}
               labelText={"Teléfono Personal"}
               placeholder={"Escribe el teléfono personal del empleado"}
               type={"text"}
               props={{ ...register("telefono_personal", { required: true }) }}
             />
-            <FormInput
-              labelText={"Estado Civil"}
-              placeholder={"Escribe el estado civil del empleado"}
-              type={"text"}
+
+            <FormSelect
+              labelText={"Genero"}
+              props={{ ...register("genero", { required: true }) }}
+            >
+              <option className="font-bold text-violet-600">
+                Seleccionar el genero
+              </option>
+              <option className="font-semibold" value={"masculino"}>
+                Masculino
+              </option>
+              <option className="font-semibold" value={"femenino"}>
+                Femenino
+              </option>
+            </FormSelect>
+            <FormSelect
+              labelText={"Estado civil"}
               props={{ ...register("estado_civil", { required: true }) }}
+            >
+              <option className="font-bold text-violet-600">
+                Seleccionar el estado
+              </option>
+              <option className="font-semibold" value={"soltero"}>
+                Soltero/a
+              </option>
+              <option className="font-semibold" value={"casado"}>
+                Casado/a
+              </option>
+              <option className="font-semibold" value={"divorciado"}>
+                Divorciado/a
+              </option>
+              <option className="font-semibold" value={"viudo"}>
+                Viudo/a
+              </option>
+            </FormSelect>
+            <FormInput
+              labelText={"Fecha Contratación"}
+              placeholder={"Escribe la fecha de contratación del empleado"}
+              type={"date"}
+              props={{ ...register("fecha_contratacion", { required: true }) }}
+            />
+
+            <FormInput
+              labelText={"Email"}
+              placeholder={"Escribe el email del empleado"}
+              type={"email"}
+              props={{ ...register("email_empleado", { required: true }) }}
             />
             <FormInput
+              styles={"capitalize"}
+              labelText={"Cuenta Bancaria"}
+              placeholder={"Escribe la cuenta bancaria del empleado"}
+              type={"text"}
+              props={{ ...register("cuenta_bancaria", { required: true }) }}
+            />
+            <FormInput
+              styles={"capitalize"}
+              labelText={"Dirección"}
+              placeholder={"Escribe la dirección del empleado"}
+              type={"text"}
+              props={{ ...register("direccion", { required: true }) }}
+            />
+            <FormInput
+              labelText={"Número Teléfono"}
+              placeholder={"Escribe el número de teléfono del empleado"}
+              type={"text"}
+              props={{ ...register("numero_telefono", { required: true }) }}
+            />
+            <FormInput
+              styles={"capitalize"}
+              labelText={"Obra Social"}
+              placeholder={"Escribe la obra social del empleado"}
+              type={"text"}
+              props={{ ...register("obrasocial", { required: true }) }}
+            />
+
+            <FormSelect
+              labelText={"Puesto  del empleado"}
+              props={{ ...register("puesto", { required: true }) }}
+            >
+              <option value="">Seleccionar el puesto</option>
+              <option value="encargado">Encargado</option>
+              <option value="jefe de fabrica">Jefe de Fábrica</option>
+              <option value="gerente">Gerente</option>
+              <option value="armador">Armador</option>
+              <option value="produccion">Producción</option>
+              <option value="sub gerente">Sub Gerente</option>
+              <option value="vendedor">Vendedor</option>
+              <option value="administrativo">Administrativo</option>
+              <option value="contable">Contable</option>
+              <option value="sistemas">Sistemas</option>
+              <option value="recursos humanos">Recursos Humanos</option>
+            </FormSelect>
+            <FormSelect
+              labelText={"Tipo Contrato"}
+              props={{ ...register("tipo_contrato", { required: true }) }}
+            >
+              <option className="font-bold text-violet-600">
+                Seleccionar el tipo
+              </option>
+              <option className="font-semibold" value={"contrato completo"}>
+                Contrato completo
+              </option>
+              <option className="font-semibold" value={"periodo de prueba"}>
+                Periodo de prueba
+              </option>
+            </FormSelect>
+            <FormSelect
+              labelText={"Fabrica/Suc."}
+              props={{ ...register("fabrica", { required: true }) }}
+            >
+              <option className="font-bold text-violet-600">
+                Seleccionar la fabrica
+              </option>
+              <option className="font-semibold" value={"parque industrial"}>
+                Fabrica Parque industrial
+              </option>
+              <option className="font-semibold" value={"aberturas"}>
+                Fabrica aberturas
+              </option>
+              <option className="font-semibold" value={"aberturas"}>
+                Adminstración m/c
+              </option>
+            </FormSelect>
+            <FormSelect
+              labelText={"Estado del empleado"}
+              props={{ ...register("estado", { required: true }) }}
+            >
+              <option className="font-bold text-violet-600">
+                Seleccionar el estado
+              </option>
+              <option className="font-semibold" value={"enfermo"}>
+                Enfermo
+              </option>
+              <option className="font-semibold" value={"trabajando"}>
+                Trabajando
+              </option>
+              <option className="font-semibold" value={"reposo"}>
+                En reposo
+              </option>
+            </FormSelect>
+
+            {/* <FormInput
+              labelText={"Salario Actual"}
+              placeholder={"Escribe el salario actual del empleado"}
+              type={"text"}
+              props={{ ...register("salario_actual", { required: true }) }}
+            /> */}
+
+            {/* <FormInput
               labelText={"Estudios Primarios"}
               placeholder={"Escribe los estudios primarios del empleado"}
               type={"text"}
@@ -157,77 +302,7 @@ export const ModalNuevoEmpleado = () => {
               props={{
                 ...register("estudios_universitarios", { required: true }),
               }}
-            />
-            <FormInput
-              labelText={"Fecha Contratación"}
-              placeholder={"Escribe la fecha de contratación del empleado"}
-              type={"text"}
-              props={{ ...register("fecha_contratacion", { required: true }) }}
-            />
-
-            <FormInput
-              labelText={"Hijos"}
-              placeholder={"Escribe los hijos del empleado"}
-              type={"text"}
-              props={{ ...register("hijos", { required: true }) }}
-            />
-            <FormInput
-              labelText={"Localidad"}
-              placeholder={"Escribe la localidad del empleado"}
-              type={"text"}
-              props={{ ...register("localidad", { required: true }) }}
-            />
-            <FormInput
-              labelText={"Email"}
-              placeholder={"Escribe el email del empleado"}
-              type={"email"}
-              props={{ ...register("email_empleado", { required: true }) }}
-            />
-            <FormInput
-              labelText={"Cuenta Bancaria"}
-              placeholder={"Escribe la cuenta bancaria del empleado"}
-              type={"text"}
-              props={{ ...register("cuenta_bancaria", { required: true }) }}
-            />
-            <FormInput
-              labelText={"Dirección"}
-              placeholder={"Escribe la dirección del empleado"}
-              type={"text"}
-              props={{ ...register("direccion", { required: true }) }}
-            />
-            <FormInput
-              labelText={"Número Teléfono"}
-              placeholder={"Escribe el número de teléfono del empleado"}
-              type={"text"}
-              props={{ ...register("numero_telefono", { required: true }) }}
-            />
-            <FormInput
-              labelText={"Obra Social"}
-              placeholder={"Escribe la obra social del empleado"}
-              type={"text"}
-              props={{ ...register("obrasocial", { required: true }) }}
-            />
-
-            <FormInput
-              labelText={"Puesto"}
-              placeholder={"Escribe el puesto del empleado"}
-              type={"text"}
-              props={{ ...register("puesto", { required: true }) }}
-            />
-
-            <FormInput
-              labelText={"Salario Actual"}
-              placeholder={"Escribe el salario actual del empleado"}
-              type={"text"}
-              props={{ ...register("salario_actual", { required: true }) }}
-            />
-
-            <FormInput
-              labelText={"Tipo Contrato"}
-              placeholder={"Escribe el tipo de contrato del empleado"}
-              type={"text"}
-              props={{ ...register("tipo_contrato", { required: true }) }}
-            />
+            /> */}
           </div>
           <div className="flex mt-3">
             <Button type={"submit"} titulo={"Guardar el empleado"} />
